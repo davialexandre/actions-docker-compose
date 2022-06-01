@@ -55,15 +55,20 @@ jobs:
       - name: Test php-fpm
         run: php-fpm -v
 
+#      - name: Docker-compose
+#        run: docker-compose up -d
 
-      - name: Docker-compose
-        run: docker-compose up -d
+#      - name: Status
+#        run: docker-compose ps -a
 
-      - name: Status
-        run: docker-compose ps -a
+      - name: Start nginx
+        run: |
+          sudo cp .docker/nginx/app.conf /etc/nginx/conf.d/default.conf 
+          sudo systemctl mono-xsp4 stop
+          sudo systemctl nginx start
 
       - name: Curl
-        run: curl 0.0.0.0:8000
+        run: curl 0.0.0.0:80
 #      - name: Run E2E Tests
 #        run: npm run e2e
 
