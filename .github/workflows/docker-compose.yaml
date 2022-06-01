@@ -1,0 +1,65 @@
+name: E2E Tests
+
+on: push
+
+jobs:
+  e2e:
+    name: "E2E Tests"
+
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: 'sqlite:///%kernel.project_dir%/var/app.db'
+      # set to null, to avoid it trying to send emails when the admin user is created during the installation
+      MAILER_DSN: 'null://null'
+      E2E_SERVER_URL: 0.0.0.0
+      E2E_SERVER_PORT: 8000
+
+    steps:
+      - name: Setup the PHP environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer:v2
+#        env:
+#          COMPOSER_TOKEN: ${{ secrets.PINEAPPLE_HEAD_ACTIONS_TOKEN }}
+
+      - name: Checkout the code
+        uses: "actions/checkout@v2"
+
+#      - name: Install dependencies
+#        run: composer install
+
+      - name: Create Environment file
+        run: echo DATABASE_URL=\"$DATABASE_URL\" > .env.local
+
+#      - name: Install pineapple-head
+#        run: php bin/console pineapple-head:install
+
+#      - name: Run data fixtures for tests
+#        run: php bin/console hautelook:fixtures:load --append --no-bundles
+
+#      - name: Build NodeJS Packages
+#        run: npm install && npm run build && cd tests/e2etest && npm install
+
+      - name: Setup php-fpm
+        env:
+          version: '8.1'
+        run: |
+          sudo apt-get install php$version-fpm
+          # Copy php-fpm to a directory in PATH
+          sudo cp /usr/sbin/php-fpm$version /usr/bin/php-fpm
+          sudo service php$version-fpm start
+          sudo service php$version-fpm status
+
+      - name: Test php-fpm
+        run: php-fpm -v
+
+#      - name: Run E2E Tests
+#        run: npm run e2e
+
+#      - uses: actions/upload-artifact@v2
+#        if: ${{ always() }}
+#        with:
+#          name: e2e-report
+#          path: tests/e2etest/report

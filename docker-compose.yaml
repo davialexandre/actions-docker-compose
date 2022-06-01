@@ -1,0 +1,19 @@
+version: '3'
+services:
+  php:
+    build: .docker/php
+    depends_on:
+      - mysql
+    volumes:
+      - ./:/app
+
+  nginx:
+    image: krish512/modsecurity:latest
+    depends_on:
+      - php
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/app #Necessary for serving static files
+      - ./.docker/nginx/app.conf:/etc/nginx/conf.d/default.conf
+      - ./.docker/nginx/modsecurity/custom.conf:/etc/nginx/modsecurity.d/custom.conf
