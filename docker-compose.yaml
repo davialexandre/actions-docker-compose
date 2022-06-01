@@ -1,12 +1,5 @@
 version: '3'
 services:
-  php:
-    build: .docker/php
-    depends_on:
-      - mysql
-    volumes:
-      - ./:/app
-
   nginx:
     image: krish512/modsecurity:latest
     depends_on:

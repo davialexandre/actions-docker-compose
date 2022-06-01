@@ -55,6 +55,10 @@ jobs:
       - name: Test php-fpm
         run: php-fpm -v
 
+
+      - name: Docker-compose
+        run: docker-compose up -d
+
 #      - name: Run E2E Tests
 #        run: npm run e2e
 
