@@ -64,8 +64,8 @@ jobs:
       - name: Start nginx
         run: |
           sudo cp .docker/nginx/app.conf /etc/nginx/conf.d/default.conf 
-          sudo systemctl mono-xsp4 stop
-          sudo systemctl nginx start
+          sudo systemctl stop mono-xsp4
+          sudo systemctl start nginx
 
       - name: Curl
         run: curl 0.0.0.0:80
