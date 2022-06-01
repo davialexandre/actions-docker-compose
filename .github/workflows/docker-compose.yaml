@@ -64,7 +64,10 @@ jobs:
       - name: Start nginx
         run: |
           sudo cp ./.docker/nginx/app.conf /etc/nginx/sites-enabled/pineapple-head.conf
-          sudo sed -i -e "s|/app/|$GITHUB_WORKSPACE/|" -e '/modsecurity\b/d' /etc/nginx/sites-enabled/pineapple-head.conf
+          sudo sed -i -e "s|/app/|$GITHUB_WORKSPACE/|" \
+            -e '/modsecurity\b/d' \
+            -e "s|php:9000|127.0.0.1:9000|" \
+            /etc/nginx/sites-enabled/pineapple-head.conf
           sudo systemctl stop mono-xsp4
           sudo systemctl start nginx
 
