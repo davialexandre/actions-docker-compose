@@ -2,8 +2,6 @@ version: '3'
 services:
   nginx:
     image: krish512/modsecurity:latest
-    depends_on:
-      - php
     ports:
       - "8000:80"
     volumes:
