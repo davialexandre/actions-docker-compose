@@ -59,6 +59,9 @@ jobs:
       - name: Docker-compose
         run: docker-compose up -d
 
+      - name: Status
+        run: docker-compose ps -a
+
       - name: Curl
         run: curl 0.0.0.0:8000
 #      - name: Run E2E Tests
