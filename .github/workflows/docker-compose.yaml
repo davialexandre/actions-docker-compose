@@ -62,7 +62,10 @@ jobs:
 #        run: docker-compose ps -a
 
       - name: config nginx
-        run: sudo cp ./.docker/nginx/app.conf /etc/nginx/sites-enabled/pineapple-head.conf
+        run: |
+          sudo cp ./.docker/nginx/app.conf /etc/nginx/sites-enabled/pineapple-head.conf
+          sudo cat /etc/nginx/sites-enabled/pineapple-head.conf
+          sudo grep -v modsecurity /etc/nginx/sites-enabled/pineapple-head.conf > /etc/nginx/sites-enabled/pineapple-head.conf
 
       - name: Start nginx
         run: |
