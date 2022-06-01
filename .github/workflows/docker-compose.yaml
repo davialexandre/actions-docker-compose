@@ -69,7 +69,9 @@ jobs:
 
       - name: Status
         if: ${{ always() }}
-        run: systemctl status nginx.service" and "journalctl -xe
+        run: | 
+          sudo systemctl status nginx.service
+          sudo journalctl -xe
 
       - name: Curl
         run: curl 0.0.0.0:80
