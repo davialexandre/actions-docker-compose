@@ -63,7 +63,8 @@ jobs:
 
       - name: Start nginx
         run: |
-          sudo cp .docker/nginx/app.conf /etc/nginx/conf.d/default.conf 
+          sudo grep -v modsecurity .docker/nginx/app.conf > /etc/nginx/conf.d/default.conf
+          sudo sudo -i -e "s|/app/|$GITHUB_WORKSPACE/|"
           sudo systemctl stop mono-xsp4
           sudo systemctl start nginx
 
