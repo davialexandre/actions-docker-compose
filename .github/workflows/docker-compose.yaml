@@ -63,6 +63,7 @@ jobs:
 
       - name: Start nginx
         run: |
+          sudo ls -la /etc/nginx/sites-enabled/
           sudo cp ./.docker/nginx/app.conf /etc/nginx/sites-enabled/pineapple-head.conf
           sudo sed -i -e "s|/app/|$GITHUB_WORKSPACE/|" \
             -e '/modsecurity\b/d' \
