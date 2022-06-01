@@ -61,19 +61,10 @@ jobs:
 #      - name: Status
 #        run: docker-compose ps -a
 
-      - name: config nginx
+      - name: Start nginx
         run: |
           sudo cp ./.docker/nginx/app.conf /etc/nginx/sites-enabled/pineapple-head.conf
           sudo sed -i -e "s|/app/|$GITHUB_WORKSPACE/|" -e '/modsecurity\b/d' /etc/nginx/sites-enabled/pineapple-head.conf
-          sudo cat /etc/nginx/sites-enabled/pineapple-head.conf
-#          sudo grep -v modsecurity /etc/nginx/sites-enabled/pineapple-head.conf > /etc/nginx/sites-enabled/pineapple-head.conf
-
-      - name: Start nginx
-        run: |
-          sudo cat /etc/nginx/nginx.conf
-          sudo touch /etc/nginx/conf.d/default.conf
-          sudo ls -l /etc/nginx/conf.d/
-          sudo sudo -i -e "s|/app/|$GITHUB_WORKSPACE/|" /etc/nginx/conf.d/default.conf
           sudo systemctl stop mono-xsp4
           sudo systemctl start nginx
 
