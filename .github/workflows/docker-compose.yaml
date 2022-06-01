@@ -72,14 +72,8 @@ jobs:
           sudo systemctl stop mono-xsp4
           sudo systemctl start nginx
 
-      - name: Status
-        if: ${{ always() }}
-        run: | 
-          sudo systemctl status nginx.service
-          sudo journalctl -xe
-
       - name: Curl
-        run: curl 0.0.0.0:80
+        run: curl localhost:80/index.php
 #      - name: Run E2E Tests
 #        run: npm run e2e
 
