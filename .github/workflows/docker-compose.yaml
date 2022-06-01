@@ -68,7 +68,7 @@ jobs:
           sudo sed -i -e "s|/app/|$GITHUB_WORKSPACE/|" \
             -e '/modsecurity\b/d' \
             -e "s|php:9000|127.0.0.1:9000|" \
-            /etc/nginx/sites-enabled/default.conf
+            /etc/nginx/sites-enabled/default
           sudo systemctl stop mono-xsp4
           sudo systemctl start nginx
 
