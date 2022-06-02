@@ -69,11 +69,20 @@ jobs:
             -e '/modsecurity\b/d' \
             -e "s|php:9000|127.0.0.1:9000|" \
             /etc/nginx/sites-enabled/default
+          sudo cat /etc/nginx/sites-enabled/default
           sudo systemctl stop mono-xsp4
           sudo systemctl start nginx
 
+      - run: pwd
+
+      - run: ls -la $GITHUB_WORKSPACE
+
+      - run: ls -la public
+
       - name: Curl
         run: curl http://localhost:80/index.php
+
+      - name: sudo cat /var/log/nginx/access.log
 
       - name: Log
         run: sudo cat /var/log/nginx/error.log
