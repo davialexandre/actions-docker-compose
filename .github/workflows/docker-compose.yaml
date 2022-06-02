@@ -90,7 +90,7 @@ jobs:
 #      - run: sudo chmod 777 public -R
 
       - name: Curl
-        run: curl http://localhost:8000/index.php
+        run: curl http://localhost:8000
 
 #      - run: sudo cat /var/log/nginx/access.log
 
