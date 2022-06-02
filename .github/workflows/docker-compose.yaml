@@ -73,7 +73,10 @@ jobs:
           sudo systemctl start nginx
 
       - name: Curl
-        run: curl localhost:80/index.php
+        run: curl http://localhost:80/index.php
+
+      - name: Log
+        run: sudo cat /var/log/nginx/error.log
 #      - name: Run E2E Tests
 #        run: npm run e2e
 
