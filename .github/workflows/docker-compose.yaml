@@ -34,7 +34,7 @@ jobs:
 #        run: echo DATABASE_URL=\"$DATABASE_URL\" > .env.local
 
       - name: dsadsadsa
-        run: "echo \"{\"github-oauth\": {\"github.com\": \"${{ env.PWD }}\"}} > auth.json"
+        run: "echo \"{\"github-oauth\": {\"github.com\": \"${{ env.PWD }}\"}}\" > auth.json"
 
       - name: dwqewq
         run: cat auth.json
