@@ -56,7 +56,7 @@ jobs:
 #        run: php-fpm -v
 
       - name: Docker-compose
-        run: docker-compose up -d
+        run: docker-compose up -d nginx
 
       - name: Status
         run: docker-compose ps -a
