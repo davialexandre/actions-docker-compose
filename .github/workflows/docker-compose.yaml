@@ -42,55 +42,60 @@ jobs:
 #      - name: Build NodeJS Packages
 #        run: npm install && npm run build && cd tests/e2etest && npm install
 
-      - name: Setup php-fpm
-        env:
-          version: '8.1'
+#      - name: Setup php-fpm
+#        env:
+#          version: '8.1'
+#        run: |
+#          sudo apt-get install php$version-fpm
+#          # Copy php-fpm to a directory in PATH
+#          sudo cp /usr/sbin/php-fpm$version /usr/bin/php-fpm
+#          sudo service php$version-fpm start
+#          sudo service php$version-fpm status
+
+#      - name: Test php-fpm
+#        run: php-fpm -v
+
+      - name: Docker-compose
+        run: docker-compose up -d
+
+      - name: Status
+        run: docker-compose ps -a
+
+      - name: Logs
         run: |
-          sudo apt-get install php$version-fpm
-          # Copy php-fpm to a directory in PATH
-          sudo cp /usr/sbin/php-fpm$version /usr/bin/php-fpm
-          sudo service php$version-fpm start
-          sudo service php$version-fpm status
+          docker-compose logs nginx
+          docker-compose logs php
 
-      - name: Test php-fpm
-        run: php-fpm -v
+#      - name: Start nginx
+#        run: |
+#          sudo ls -la /etc/nginx/sites-enabled/
+#          sudo cp ./.docker/nginx/app.conf /etc/nginx/sites-enabled/default
+#          sudo sed -i -e "s|/app/|$GITHUB_WORKSPACE/|" \
+#            -e '/modsecurity\b/d' \
+#            -e "s|php:9000|127.0.0.1:9000|" \
+#            /etc/nginx/sites-enabled/default
+#          sudo cat /etc/nginx/sites-enabled/default
+#          sudo systemctl stop mono-xsp4
+#          sudo systemctl start nginx
 
-#      - name: Docker-compose
-#        run: docker-compose up -d
+#      - name: PWD
+#        run: pwd
 
-#      - name: Status
-#        run: docker-compose ps -a
+#      - name: workspace
+#        run: ls -la $GITHUB_WORKSPACE
 
-      - name: Start nginx
-        run: |
-          sudo ls -la /etc/nginx/sites-enabled/
-          sudo cp ./.docker/nginx/app.conf /etc/nginx/sites-enabled/default
-          sudo sed -i -e "s|/app/|$GITHUB_WORKSPACE/|" \
-            -e '/modsecurity\b/d' \
-            -e "s|php:9000|127.0.0.1:9000|" \
-            /etc/nginx/sites-enabled/default
-          sudo cat /etc/nginx/sites-enabled/default
-          sudo systemctl stop mono-xsp4
-          sudo systemctl start nginx
+#      - name: public
+#        run: ls -la public
 
-      - name: PWD
-        run: pwd
-
-      - name: workspace
-        run: ls -la $GITHUB_WORKSPACE
-
-      - name: public
-        run: ls -la public
-
-      - run: sudo chmod 777 public -R
+#      - run: sudo chmod 777 public -R
 
       - name: Curl
-        run: curl http://localhost:80/index.php
+        run: curl http://localhost:8000/index.php
 
-      - run: sudo cat /var/log/nginx/access.log
+#      - run: sudo cat /var/log/nginx/access.log
 
-      - name: Log
-        run: sudo cat /var/log/nginx/error.log
+#      - name: Log
+#        run: sudo cat /var/log/nginx/error.log
 #      - name: Run E2E Tests
 #        run: npm run e2e
 
