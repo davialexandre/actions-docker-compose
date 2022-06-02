@@ -73,11 +73,14 @@ jobs:
           sudo systemctl stop mono-xsp4
           sudo systemctl start nginx
 
-      - run: pwd
+      - name: PWD
+        run: pwd
 
-      - run: ls -la $GITHUB_WORKSPACE
+      - name: workspace
+        run: ls -la $GITHUB_WORKSPACE
 
-      - run: ls -la public
+      - name: public
+        run: ls -la public
 
       - name: Curl
         run: curl http://localhost:80/index.php
