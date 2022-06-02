@@ -85,7 +85,7 @@ jobs:
       - name: Curl
         run: curl http://localhost:80/index.php
 
-      - name: sudo cat /var/log/nginx/access.log
+      - run: sudo cat /var/log/nginx/access.log
 
       - name: Log
         run: sudo cat /var/log/nginx/error.log
