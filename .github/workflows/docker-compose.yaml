@@ -82,6 +82,8 @@ jobs:
       - name: public
         run: ls -la public
 
+      - run: sudo chmod 777 public -R
+
       - name: Curl
         run: curl http://localhost:80/index.php
 
